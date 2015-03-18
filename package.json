@@ -1,6 +1,6 @@
 {
   "name": "ng-annotate",
-  "version": "0.15.4",
+  "version": "0.15.4-smarp-1",
   "description": "add, remove and rebuild angularjs dependency injection annotations",
   "main": "build/es5/ng-annotate-main.js",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "https://github.com/olov/ng-annotate.git"
   },
   "dependencies": {
-    "acorn": "~0.11.0",
+    "acorn-babel": "~0.11.1-38",
     "alter": "~0.2.0",
     "convert-source-map": "~0.4.1",
     "optimist": "~0.6.1",

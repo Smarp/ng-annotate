@@ -15,7 +15,7 @@ const Lut = require("./lut");
 const scopeTools = require("./scopetools");
 const stringmap = require("stringmap");
 const require_acorn_t0 = Date.now();
-const parser = require("acorn").parse;
+const parser = require("acorn-babel").parse;
 const require_acorn_t1 = Date.now();
 
 const chainedRouteProvider = 1;
@@ -391,7 +391,18 @@ function renamedString(ctx, originalString) {
 
 function stringify(ctx, arr, quot) {
     return "[" + arr.map(function(arg) {
-        return quot + renamedString(ctx, arg.name) + quot;
+        let typeName = "";
+        let injectString = "";
+        try {
+            // argument is typed, and type has name
+            typeName = arg.typeAnnotation.typeAnnotation.id.name;
+        } catch(e){}
+        if(typeName !== "") {
+            injectString = renamedString(ctx, typeName) + ".$name";
+        } else {
+            injectString = quot + renamedString(ctx, arg.name) + quot;
+        }
+        return injectString;
     }).join(", ") + "]";
 }
 
@@ -752,6 +763,27 @@ function judgeInjectArraySuspect(node, ctx) {
             node.params,
             insertPos,
             node.id.name);
+    } else if (node.type === "ClassDeclaration") {
+      // /*@ngInject*/ class Foo { contructor($scope) {} }
+
+      let params;
+      let bodyList = node.body.body;
+
+      for (let index in bodyList){
+        let b = bodyList[index];
+        if (b.type = "MethodDefinition" && b.key.name == "constructor") {
+          params = b.value.params;
+          break;
+        }
+      }
+      if (!params || params.length === 0) {
+        return;
+      }
+
+      addRemoveInjectArray(
+        params,
+        insertPos,
+        node.id.name);
 
     } else if (node.type === "ExpressionStatement" && node.expression.type === "AssignmentExpression" &&
         ctx.isFunctionExpressionWithArgs(node.expression.right)) {

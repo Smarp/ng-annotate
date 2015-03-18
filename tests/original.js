@@ -145,7 +145,7 @@ function fooget(b) {
     this.$get = fooget2;
 }
 
-function fooget2(c) {
+function fooget2(c: myMod, untypedS, anyS: any) {
 }
 
 // chaining
@@ -610,6 +610,29 @@ var obj = {
     nest: { many: {levels: function(x) {}}},
     but: { onlythrough: ["object literals", {donttouch: function(me) {}}]},
 };
+
+// @ngInject
+class Bar1{
+  constructor ($scope) {
+  }
+}
+
+// @ngInject
+class Bar2{
+  someMethodFirst(){}
+  constructor ($scope) {
+  }
+}
+
+// @ngInject
+class Bar4{
+}
+
+// @ngInject
+class Bar5{
+  constructor () {
+  }
+}
 
 // @ngInject
 function foo($scope) {

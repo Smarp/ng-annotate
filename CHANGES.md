@@ -1,3 +1,8 @@
+## Smarp's version
+ * switch from acorn to acorn-babel
+ * feature: inject from type annotation using `$name` attribute
+ * feature: inject to class
+
 ## v0.15.4 2015-01-29
  * improved Traceur compatibility ("ngInject" prologue => fn.$inject = [..] arrays)
 

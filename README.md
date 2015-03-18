@@ -1,3 +1,32 @@
+# Smarp's version
+This is a forked version support injection using type annotation, not name
+
+```js
+class ServiceClass{
+	constructor(){}
+	doThing(){}
+	doSth(){
+		return this.doThing()
+			.then(=>{
+				this.doThing();
+			})
+			;
+	}
+}
+function MyCtrl(ServiceInstance: ServiceClass, untypedService, anyService: any) {
+	ServiceInstance.doSth();
+});
+```
+
+compiled to
+
+```js
+function MyCtrl(ServiceInstance: ServiceClass) {
+	ServiceInstance.doSth();
+});
+MyCtrl.$inject = [ServiceInstance.name, "untypedService", "anyService"];
+```
+
 # ng-annotate
 ng-annotate adds and removes AngularJS dependency injection annotations.
 It is non-intrusive so your source code stays exactly the same otherwise.

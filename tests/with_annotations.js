@@ -148,9 +148,9 @@ function fooget(b) {
 }
 fooget.$inject = ["b"];
 
-function fooget2(c) {
+function fooget2(c: myMod, untypedS, anyS: any) {
 }
-fooget2.$inject = ["c"];
+fooget2.$inject = [myMod.$name, "untypedS", "anyS"];
 
 // chaining
 myMod.directive("foo", ["$a", "$b", function($a, $b) {
@@ -614,6 +614,31 @@ var obj = {
     nest: { many: {levels: ["x", function(x) {}]}},
     but: { onlythrough: ["object literals", {donttouch: function(me) {}}]},
 };
+
+// @ngInject
+class Bar1{
+  constructor ($scope) {
+  }
+}
+Bar1.$inject = ["$scope"];
+
+// @ngInject
+class Bar2{
+  someMethodFirst(){}
+  constructor ($scope) {
+  }
+}
+Bar2.$inject = ["$scope"];
+
+// @ngInject
+class Bar4{
+}
+
+// @ngInject
+class Bar5{
+  constructor () {
+  }
+}
 
 // @ngInject
 function foo($scope) {
