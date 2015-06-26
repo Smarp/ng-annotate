@@ -148,6 +148,9 @@ function fooget(b) {
 function fooget2(c: myMod, untypedS, anyS: any) {
 }
 
+function fooget3(optionalP?, defaultP = "") {
+}
+
 // chaining
 myMod.directive("foo", function($a, $b) {
     a;
