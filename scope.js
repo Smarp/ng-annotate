@@ -99,6 +99,9 @@ Scope.prototype.add = function(name, kind, node, referableFromPos) {
         assert(is.someof(kind, ["var", "const", "let"]));
         declaration.from = referableFromPos;
     }
+    if (!name){
+        return;
+    }
     scope.decls.set(name, declaration);
 };
 

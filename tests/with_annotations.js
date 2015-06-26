@@ -152,6 +152,9 @@ function fooget2(c: myMod, untypedS, anyS: any) {
 }
 fooget2.$inject = [myMod.$name, "untypedS", "anyS"];
 
+function fooget3(optionalP?, defaultP = "") {
+}
+
 // chaining
 myMod.directive("foo", ["$a", "$b", function($a, $b) {
     a;
