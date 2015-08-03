@@ -135,6 +135,7 @@ myMod.provider("foo", extprov);
 function extprov(x) {
     this.$get = ["a", "b", function(a,b) {}];
     this.$get = fooget;
+    this.$get = barget;
     this.$get = inner;
 
     function inner(c, d) {
@@ -142,6 +143,11 @@ function extprov(x) {
     inner.$inject = ["c", "d"];
 }
 extprov.$inject = ["x"];
+
+function barget(_c_) {
+  this.$get = fooget2;
+}
+barget.$inject = ["c"];
 
 function fooget(b) {
     this.$get = fooget2;

@@ -383,6 +383,9 @@ function matchResolve(props) {
 };
 
 function renamedString(ctx, originalString) {
+    if(originalString.substr(0,1) === "_" && originalString.substr(-1) === "_") {
+        originalString = originalString.slice(1,-1);
+    }
     if (ctx.rename) {
         return ctx.rename.get(originalString) || originalString;
     }
