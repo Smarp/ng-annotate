@@ -135,10 +135,15 @@ myMod.provider("foo", extprov);
 function extprov(x) {
     this.$get = function(a,b) {};
     this.$get = fooget;
+    this.$get = barget;
     this.$get = inner;
 
     function inner(c, d) {
     }
+}
+
+function barget(_c_) {
+  this.$get = fooget2;
 }
 
 function fooget(b) {
